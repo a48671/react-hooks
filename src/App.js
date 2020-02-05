@@ -12,10 +12,12 @@ const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
         list-style: none;
         text-decoration: none;
+        font-family: 'Arial', sans-serif;
+        border: none;
+        &:focus {
+            outline: none;
+        }
     }
-    a, a:visited, a:hover, a:active {
-        color: black;
-    } 
 `;
 
 const App = () => (

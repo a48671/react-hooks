@@ -1,14 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Wrapper, Container, Nav, NavItem } from './styled';
+import { Wrapper, Container, Nav, NavItem, Logo } from './styled';
 
 const TopBar = () => {
     return (
         <Wrapper>
             <Container>
-                <Link to='/'>
-                    TopBar
-                </Link>
+                <Logo to='/'>
+                    I am programmer
+                </Logo>
                 <Nav>
                     <NavItem to='/' exact>
                         Home
