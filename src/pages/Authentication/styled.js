@@ -63,8 +63,9 @@ export const Button = styled.button`
     line-height: 49px;
     padding: 0 20px;
     color: ${COLORS.white};
-    cursor: pointer;
+    cursor: ${p => p.disabled ? 'wait' : 'pointer'};
     transition: 0.3s;
+    opacity: ${p => p.disabled ? '0.5' : '1'};
     &:hover {
         background-color: ${COLORS.orangeLight};
         color: ${COLORS.orangeDark};
