@@ -1,7 +1,8 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { BrowserRouter as Router } from 'react-router-dom';
 import Routes from './routes';
 import { createGlobalStyle } from 'styled-components';
+import { CurrentUserProvider } from './contexts/currentUser';
 
 import TopBar from "./components/TopBar";
 
@@ -21,13 +22,13 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const App = () => (
-    <Fragment>
+    <CurrentUserProvider>
         <GlobalStyle/>
         <Router>
             <TopBar/>
             <Routes/>
         </Router>
-    </Fragment>
+    </CurrentUserProvider>
 );
 
 export default App;

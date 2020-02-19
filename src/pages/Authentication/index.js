@@ -1,8 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Container from "../../components/Container";
 import { Wrapper, Title, LinkForRegister, Form, Field, Input, Button } from "./styled";
 import useFetch from "../../hooks/useFetch";
+import useLocalStorage from "../../hooks/useLocalStorage";
+import { CurrentUserContext } from '../../contexts/currentUser';
 
 const Authentication = props => {
 
@@ -15,7 +18,12 @@ const Authentication = props => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [{data, error, isLoading}, doFetch] = useFetch(endPoint);
+    const [{response, error, isLoading}, doFetch] = useFetch(endPoint);
+    const [isSuccessfullSubmit, setIsSuccessfullSubmit] = useState(false);
+    const [, setToken] = useLocalStorage('token');
+    const [currentUserState, setCurrenUserState] = useContext(CurrentUserContext);
+
+    console.log(currentUserState);
 
     const handlerSubmit = e => {
         e.preventDefault();
@@ -27,7 +35,21 @@ const Authentication = props => {
     };
 
     useEffect(() => {
-    }, [data, error])
+        if (response) {
+            setToken(response.user.token);
+            setIsSuccessfullSubmit(true);
+            setCurrenUserState(state => ({
+                ...state,
+                isLoading: false,
+                isLoggedIn: true,
+                currentUser: response.user
+            }))
+        }
+    }, [response, error]);
+
+    if (isSuccessfullSubmit) {
+        return <Redirect to='/'/>
+    }
 
     return (
         <Wrapper>
