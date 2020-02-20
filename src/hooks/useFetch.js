@@ -3,12 +3,17 @@ import axios from 'axios';
 import { BASE_URL } from '../constants';
 import path from 'path';
 
+import useLocalStorage from "./useLocalStorage";
+
 export default url => {
 
-    const [data, setData] = useState(null);
+    const [response, setResponse] = useState(null);
     const [isLoading, setLoadinng] = useState(false);
     const [error, setError] = useState(null);
     const [options, setOptions] = useState({});
+
+    const [token] = useLocalStorage('token');
+
 
     const doFetch = (options = {}) => {
         setOptions(options);
@@ -16,17 +21,23 @@ export default url => {
     };
 
     useEffect(() => {
+        const requestOptions = {
+            ...options,
+            headers: {
+                authorization: token ? `Token ${token}` : ''
+            }
+        };
         if (!isLoading) return;
-        axios(path.join(BASE_URL, url), options)
+        axios(path.join(BASE_URL, url), requestOptions)
             .then(res => {
-                setData(res.data);
+                setResponse(res.data);
                 setLoadinng(false);
             })
             .catch(error => {
                 setError(error.response.data);
                 setLoadinng(false);
             });
-    }, [isLoading, options, url]);
+    }, [isLoading, options, url, token]);
 
-    return [{data, isLoading, error}, doFetch];
+    return [{response, isLoading, error}, doFetch];
 };

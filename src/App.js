@@ -5,6 +5,7 @@ import { createGlobalStyle } from 'styled-components';
 import { CurrentUserProvider } from './contexts/currentUser';
 
 import TopBar from "./components/TopBar";
+import CurrentUserChecker from "./components/CurrentUserChecker";
 
 const GlobalStyle = createGlobalStyle`
     * {
@@ -24,10 +25,12 @@ const GlobalStyle = createGlobalStyle`
 const App = () => (
     <CurrentUserProvider>
         <GlobalStyle/>
-        <Router>
-            <TopBar/>
-            <Routes/>
-        </Router>
+        <CurrentUserChecker>
+            <Router>
+                <TopBar/>
+                <Routes/>
+            </Router>
+        </CurrentUserChecker>
     </CurrentUserProvider>
 );
 
