@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { BASE_URL } from '../constants';
 import path from 'path';
@@ -15,10 +15,10 @@ export default url => {
     const [token] = useLocalStorage('token');
 
 
-    const doFetch = (options = {}) => {
+    const doFetch = useCallback((options = {}) => {
         setOptions(options);
         setLoadinng(true);
-    };
+    }, []);
 
     useEffect(() => {
         const requestOptions = {
@@ -34,7 +34,7 @@ export default url => {
                 setLoadinng(false);
             })
             .catch(error => {
-                setError(error.response.data);
+                setError(error.response ? error.response.data : error);
                 setLoadinng(false);
             });
     }, [isLoading, options, url, token]);

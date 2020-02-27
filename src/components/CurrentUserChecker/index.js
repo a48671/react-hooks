@@ -12,6 +12,8 @@ const CurrentUserChecker = ({children}) => {
 
     const [, setCurrentUserState] = useContext(CurrentUserContext);
 
+    console.log('CurrentUserChecker')
+
     useEffect(() => {
         if (!token) {
             setCurrentUserState(state => ({
@@ -25,7 +27,7 @@ const CurrentUserChecker = ({children}) => {
             ...state,
             isLoading: true
         }));
-    }, []);
+    }, [token, doFetch, setCurrentUserState]);
 
     useEffect(() => {
         if (!response) return;
@@ -33,6 +35,7 @@ const CurrentUserChecker = ({children}) => {
         setCurrentUserState(state => ({
             ...state,
             isLoading: false,
+            isLoggedIn: true,
             currentUser: response.user
         }));
     }, [response, setCurrentUserState]);

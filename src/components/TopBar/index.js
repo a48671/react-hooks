@@ -1,7 +1,11 @@
-import React from 'react';
-import { Wrapper, Container, Nav, NavItem, Logo } from './styled';
+import React, { useContext, Fragment } from 'react';
+import { Wrapper, Container, Nav, NavItem, Logo, Image } from './styled';
+import { CurrentUserContext } from '../../contexts/currentUser';
 
 const TopBar = () => {
+
+    const [{isLoggedIn, currentUser}] = useContext(CurrentUserContext);
+
     return (
         <Wrapper>
             <Container>
@@ -12,12 +16,29 @@ const TopBar = () => {
                     <NavItem to='/' exact>
                         Home
                     </NavItem>
-                    <NavItem to='/login'>
-                        Sign in
-                    </NavItem>
-                    <NavItem to='/register'>
-                        Sign up
-                    </NavItem>
+                    {
+                        isLoggedIn === false &&
+                        <Fragment>
+                            <NavItem to='/login'>
+                                Sign in
+                            </NavItem>
+                            <NavItem to='/register'>
+                                Sign up
+                            </NavItem>
+                        </Fragment>
+                    }
+                    {
+                        isLoggedIn &&
+                        <Fragment>
+                            <NavItem to='/articles/new'>
+                                New post
+                            </NavItem>
+                            <NavItem to={`/profiles/${currentUser.username}`}>
+                                {currentUser.username}
+                            </NavItem>
+                            <Image image={currentUser.image}/>
+                        </Fragment>
+                    }
                 </Nav>
             </Container>
         </Wrapper>

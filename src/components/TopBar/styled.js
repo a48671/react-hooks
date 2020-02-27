@@ -5,10 +5,13 @@ import { COLORS } from '../../styleProperties'
 
 export const Wrapper = styled.div`
     display: block;
+    position: relative;
     width: 100%;
     color: aquamarine;
     background-color: ${COLORS.blue};
     color: ${COLORS.white};
+    box-shadow: 0px 0 6px 0 ${COLORS.blueDark}; 
+    z-index: 2;
 `;
 
 export const Container = styled(MainContainer)`
@@ -38,7 +41,9 @@ export const Nav = styled.nav`
 `;
 
 export const NavItem = styled(NavLink)`
-    display: block;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     position: relative;
     padding: 20px 10px;
     color: ${COLORS.white};
@@ -64,4 +69,14 @@ export const NavItem = styled(NavLink)`
             opacity: 1;
         }
     }
+`;
+
+export const Image = styled.nav`
+    display: block;
+    width: 40px;
+    height: 40px;
+    background-color: ${COLORS.white};
+    background-image: ${p => p.image ?  `url(${p.image})` : 'none'};
+    margin-right: 10px;
+    border-radius: 6px;
 `;
