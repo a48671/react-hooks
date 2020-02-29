@@ -11,18 +11,20 @@ import FeedToggler from "../../components/FeedToggler";
 
 import { getPaginator, queryString } from '../../utils';
 
-import { Wrapper, Banner, Content, Articles, Tags } from './styled';
+import { Wrapper, Banner, Content, Articles, Tags } from '../GlobalFeed/styled';
 
 import useFetch from '../../hooks/useFetch';
 
-const GlobalFeed = ({location, match: {url}}) => {
+const TagFeed = ({location, match}) => {
+    const url = match.url;
+    const tagName = match.params.tag;
     const {limit, offset, page: currentPage} = getPaginator(location.search);
-    const stringifiedParams = queryString.stringify({limit, offset});
+    const stringifiedParams = queryString.stringify({limit, offset, tag: tagName});
     const apiUrl=`/articles?${stringifiedParams}`;
     const [{response, isLoading, error}, doFetch] = useFetch(apiUrl);
     useEffect(() => {
         doFetch();
-    }, [doFetch, currentPage]);
+    }, [doFetch, currentPage, tagName]);
     return (
         <Wrapper>
             <Banner>
@@ -34,7 +36,7 @@ const GlobalFeed = ({location, match: {url}}) => {
             <Container>
                 <Content>
                     <Articles>
-                        <FeedToggler/>
+                        <FeedToggler tagName={tagName}/>
                         {isLoading && <Loading/>}
                         {error && <ErrorMessage/>}
                         {!isLoading && !error && response && (
@@ -58,9 +60,9 @@ const GlobalFeed = ({location, match: {url}}) => {
     );
 };
 
-GlobalFeed.propTypes = {
+TagFeed.propTypes = {
     location: PropTypes.object,
     match: PropTypes.object
 }
 
-export default GlobalFeed;
+export default TagFeed;

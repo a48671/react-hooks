@@ -26,7 +26,7 @@ const PopularTags = () => {
     return (
         <Wrapper>
             {response.tags.map(tag => (
-                <Tag>
+                <Tag key={tag} to={`/tags/${tag}`}>
                     {tag}
                 </Tag>
             ))}

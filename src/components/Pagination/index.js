@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Wrapper, Page } from './styled';
 
@@ -20,6 +21,13 @@ const Pagination = ({total, currentPage, limit, url}) => {
             ))}
         </Wrapper>
     );
+};
+
+Pagination.propTypes = {
+    total: PropTypes.number,
+    currentPage: PropTypes.number,
+    limit: PropTypes.number,
+    url: PropTypes.string
 };
 
 export default Pagination;
