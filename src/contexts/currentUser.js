@@ -9,7 +9,6 @@ export const CurrentUserProvider = ({children}) => {
         isLoggedIn: null,
         currentUser: null
     });
-    console.log('state', state)
     return (
         <CurrentUserContext.Provider value={[state, setState]}>
             {children}

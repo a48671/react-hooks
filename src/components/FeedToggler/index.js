@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+
+import { CurrentUserContext } from "../../contexts/currentUser";
 
 import { Wrapper, Item } from './styled';
 
 const FeedToggler = ({tagName}) => {
+
+    const [{isLoggedIn}] = useContext(CurrentUserContext);
+
     return (
         <Wrapper>
-            <Item key='yourFeed' to='/feed'>
-                Your feed
-            </Item>
+            {isLoggedIn && (
+                <Item key='yourFeed' to='/feed'>
+                    Your feed
+                </Item>
+            )}
             <Item key='globalFeed' to='/' exact>
                 Global feed
             </Item>

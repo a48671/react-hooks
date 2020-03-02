@@ -12,8 +12,6 @@ const CurrentUserChecker = ({children}) => {
 
     const [, setCurrentUserState] = useContext(CurrentUserContext);
 
-    console.log('CurrentUserChecker')
-
     useEffect(() => {
         if (!token) {
             setCurrentUserState(state => ({
