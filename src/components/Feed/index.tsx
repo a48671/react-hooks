@@ -1,9 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {  } from 'react-dom';
 
-import { Wrapper, Article, ArticleHead, AuthorImage, AuthorName, CreatData, Tags, Tag } from './styled';
+import { InterfaceArticle } from '../../models/article';
 
-const Feed = ({articles=[]}) => {
+import { Wrapper, Article, ArticleWrapper, ArticleHead, AuthorImage, AuthorName, CreatData, Tags, Tag } from './styled';
+
+interface InterfaceArticlesProps {
+    articles: InterfaceArticle[]
+}
+
+const Feed: React.FC<InterfaceArticlesProps> = (props: InterfaceArticlesProps) => {
+    const { articles } = props;
     return (
         <Wrapper>
             {articles.length
@@ -18,7 +26,7 @@ const Feed = ({articles=[]}) => {
                                 </AuthorName>
                                 <CreatData>{article.createdAt}</CreatData>
                             </ArticleHead>
-                            <div to={`/articles/${article.slag}`}>
+                            <ArticleWrapper to={`/articles/${article.slag}`}>
                                 <h2>{article.title}</h2>
                                 <p>{article.description}</p>
                                 <span>Read more...</span>
@@ -31,7 +39,7 @@ const Feed = ({articles=[]}) => {
                                         ))}
                                     </Tags>
                                 )}
-                            </div>
+                            </ArticleWrapper>
                         </Article>
                     ))
                 :   <div>Your feed is clear</div>

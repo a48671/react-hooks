@@ -13,6 +13,10 @@ export const Article = styled.div`
     padding: 10px;
 `;
 
+export const ArticleWrapper = styled.div`
+    display: block;
+`;
+
 export const ArticleHead = styled.div`
     display: flex;
     justify-content: space-between;

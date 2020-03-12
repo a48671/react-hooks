@@ -5,7 +5,7 @@ import ErrorMessag from '../ErrorMessage';
 
 import { Wrapper, Tag } from './styled';
 
-import useFetch from '../../hooks/useFetch';
+import useFetch from '../../hooks/useFetch.tsx';
 
 const PopularTags = () => {
 

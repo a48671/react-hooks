@@ -2,8 +2,8 @@ import React, { useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import Container from "../../components/Container";
-import Feed from '../../components/Feed';
-import Pagination from '../../components/Pagination';
+import Feed from '../../components/Feed/index.tsx';
+import Pagination from '../../components/Pagination/index.tsx';
 import Loading from '../../components/Loading';
 import ErrorMessage from '../../components/ErrorMessage';
 import PopularTags from '../../components/PopularTags';
@@ -13,7 +13,7 @@ import { getPaginator, queryString } from '../../utils';
 
 import { Wrapper, Banner, Content, Articles, Tags } from '../GlobalFeed/styled';
 
-import useFetch from '../../hooks/useFetch';
+import useFetch from '../../hooks/useFetch.tsx';
 
 const YourFeed = ({location, match}) => {
     const url = match.url;

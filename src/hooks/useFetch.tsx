@@ -1,21 +1,27 @@
 import { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { BASE_URL } from '../constants';
-import path from 'path';
+const path = require('path');
 
 import useLocalStorage from "./useLocalStorage";
 
-export default url => {
+interface InterfaceDoFetchResponse {
+    response: Object | null,
+    isLoading: boolean,
+    error: Object
+}
 
-    const [response, setResponse] = useState(null);
-    const [isLoading, setLoadinng] = useState(false);
-    const [error, setError] = useState(null);
-    const [options, setOptions] = useState({});
+export default (url: string): (InterfaceDoFetchResponse | Function)[] => {
+
+    const [response, setResponse] = useState<Object | null>(null);
+    const [isLoading, setLoadinng] = useState<boolean>(false);
+    const [error, setError] = useState<Object>(null);
+    const [options, setOptions] = useState<Object>({});
 
     const [token] = useLocalStorage('token');
 
 
-    const doFetch = useCallback((options = {}) => {
+    const doFetch = useCallback((options: Object = {}) => {
         setOptions(options);
         setLoadinng(true);
     }, []);
@@ -39,5 +45,7 @@ export default url => {
             });
     }, [isLoading, options, url, token]);
 
-    return [{response, isLoading, error}, doFetch];
+    const doFetchResponse: InterfaceDoFetchResponse = {response, isLoading, error}
+
+    return [doFetchResponse, doFetch];
 };
