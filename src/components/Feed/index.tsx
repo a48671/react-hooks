@@ -1,10 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {  } from 'react-dom';
+import TagList from '../TagList/index'
 
 import { InterfaceArticle } from '../../models/article';
 
-import { Wrapper, Article, ArticleWrapper, ArticleHead, AuthorImage, AuthorName, CreatData, Tags, Tag } from './styled';
+import { Wrapper, Article, ArticleWrapper, ArticleHead, AuthorImage, AuthorName, CreatData } from './styled';
 
 interface InterfaceArticlesProps {
     articles: InterfaceArticle[]
@@ -26,18 +25,12 @@ const Feed: React.FC<InterfaceArticlesProps> = (props: InterfaceArticlesProps) =
                                 </AuthorName>
                                 <CreatData>{article.createdAt}</CreatData>
                             </ArticleHead>
-                            <ArticleWrapper to={`/articles/${article.slag}`}>
+                            <ArticleWrapper to={`/articles/${article.slug}`}>
                                 <h2>{article.title}</h2>
                                 <p>{article.description}</p>
                                 <span>Read more...</span>
                                 {article.tagList && article.tagList.length > 0 && (
-                                    <Tags>
-                                        {article.tagList.map(tag => (
-                                            <Tag key={tag}>
-                                                {tag}
-                                            </Tag>
-                                        ))}
-                                    </Tags>
+                                    <TagList tags={article.tagList}/>
                                 )}
                             </ArticleWrapper>
                         </Article>
@@ -47,9 +40,5 @@ const Feed: React.FC<InterfaceArticlesProps> = (props: InterfaceArticlesProps) =
         </Wrapper>
     );
 };
-
-Feed.propTypes = {
-    articles: PropTypes.array
-}
 
 export default Feed;

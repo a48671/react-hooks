@@ -20,7 +20,7 @@ const Pagination: React.FunctionComponent<InterfaceProps> = (props: InterfacePro
             {pages.map(page => (
                 <Page
                     key={page}
-                    current={page === currentPage ? 'true' : undefined}
+                    current={(page === currentPage) ? 'true' : 'false'}
                     to={`${url}?page=${page}`}
                 >
                     {page}

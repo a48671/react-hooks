@@ -6,16 +6,16 @@ const path = require('path');
 import useLocalStorage from "./useLocalStorage";
 
 interface InterfaceDoFetchResponse {
-    response: Object | null,
+    response: any,
     isLoading: boolean,
-    error: Object
+    error: any
 }
 
-export default (url: string): (InterfaceDoFetchResponse | Function)[] => {
+export default (url: string): [InterfaceDoFetchResponse,  Function] => {
 
-    const [response, setResponse] = useState<Object | null>(null);
+    const [response, setResponse] = useState<any>(null);
     const [isLoading, setLoadinng] = useState<boolean>(false);
-    const [error, setError] = useState<Object>(null);
+    const [error, setError] = useState<any>(null);
     const [options, setOptions] = useState<Object>({});
 
     const [token] = useLocalStorage('token');

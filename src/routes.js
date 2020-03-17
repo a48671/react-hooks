@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import GlobalFeed from "./pages/GlobalFeed";
 import TagFeed from "./pages/TagFeed";
-import Article from "./pages/Article";
+import Article from "./pages/Article/index.tsx";
 import Authentication from "./pages/Authentication";
 import YourFeed from "./pages/YourFeed";
 
@@ -15,7 +15,7 @@ const Routes = () => {
             <Route path='/tags/:tag' component={TagFeed} />
             <Route path='/login' component={Authentication} />
             <Route path='/register' component={Authentication} />
-            <Route path='/articles/:alias' component={Article} />
+            <Route path='/articles/:slug' component={Article} />
         </Switch>
     );
 };

@@ -6,7 +6,7 @@ interface InterfaceAuthor {
 export interface InterfaceArticle {
     author: InterfaceAuthor,
     createdAt: Date,
-    slag: string,
+    slug: string,
     title: string,
     description: string,
     tagList: Array<string>

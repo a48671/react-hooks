@@ -11,13 +11,17 @@ export const Wrapper = styled.div`
     margin: 30px -5px 0;
 `;
 
+interface IPageProps {
+    current: 'true' | 'false'
+}
+
 export const Page = styled(Link)`
     display: block;
     padding: 5px 10px;
     border: 1px solid ${COLORS.blueLight};
-    color: ${p => p.current ? COLORS.white : COLORS.dark};
+    color: ${(p: IPageProps) => p.current === 'true' ? COLORS.white : COLORS.dark};
     margin: 0 5px 10px;
-    background-color: ${p => p.current ? COLORS.blueLight : 'transperent'};
-    pointer-events: ${p => p.current ? 'none' : 'auto'};
+    background-color: ${(p: IPageProps) => p.current === 'true' ? COLORS.blueLight : 'transperent'};
+    pointer-events: ${(p: IPageProps) => p.current === 'true' ? 'none' : 'auto'};
     user-select: none;
 `;
