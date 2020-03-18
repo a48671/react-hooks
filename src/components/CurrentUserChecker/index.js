@@ -10,33 +10,21 @@ const CurrentUserChecker = ({children}) => {
     const [{response}, doFetch] = useFetch('/user');
     const [token] = useLocalStorage('token');
 
-    const [, setCurrentUserState] = useContext(CurrentUserContext);
+    const [, dispatch] = useContext(CurrentUserContext);
 
     useEffect(() => {
         if (!token) {
-            setCurrentUserState(state => ({
-                ...state,
-                isLoggedIn: false
-            }));
+            dispatch({type: 'SET_UNAUTHORIZED'});
             return;
         }
         doFetch();
-        setCurrentUserState(state => ({
-            ...state,
-            isLoading: true
-        }));
-    }, [token, doFetch, setCurrentUserState]);
+        dispatch({type: 'LOADING'});
+    }, [token, doFetch, dispatch]);
 
     useEffect(() => {
         if (!response) return;
-
-        setCurrentUserState(state => ({
-            ...state,
-            isLoading: false,
-            isLoggedIn: true,
-            currentUser: response.user
-        }));
-    }, [response, setCurrentUserState]);
+        dispatch({type: 'SET_AUTHORIZED', payload: response.user});
+    }, [response, dispatch]);
 
     return children;
 };
